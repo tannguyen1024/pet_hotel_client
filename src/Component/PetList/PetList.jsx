@@ -1,28 +1,55 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+
 class PetList extends Component {
 
-  
+  state = {
+    newPet: {
+      name: '',
+      color: '',
+      breed: '',
+      owner_id: 1
+
+    }
+  }
+
+
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PETS" });
   }
+
+  handleChange = (event, property) => {
+    this.setState({
+      newPet: {
+        ...this.state.newPet,
+        [property]: event.target.value
+      }
+    })
+  }
+
+  submitClick = () => {
+    console.log("button clicked", this.state.newPet);
+    
+  }
+
+
 
   render() {
     console.log(this.props.pets);
     return (
       <div>
         <h3>Add Pet</h3>
-        <input type="text" placeholder="Pet Name"></input>
-        <input type="text" placeholder="Pet Color"></input>
-        <input type="text" placeholder="Pet Breed"></input>
-        <select>
-          <option>Natalie</option>
-          <option>Tan</option>
-          <option>Mike</option>
-          <option>Chinmaya</option>
+        <input type="text" placeholder="Pet Name" onChange={(event) => this.handleChange(event, "name")}></input>
+        <input type="text" placeholder="Pet Color" onChange={(event) => this.handleChange(event, "color")}></input>
+        <input type="text" placeholder="Pet Breed" onChange={(event) => this.handleChange(event, "breed")}></input>
+        <select onChange={(event) => this.handleChange(event, "owner_id")}>
+          <option value={1}>Natalie</option>
+          <option value={2}>Tan</option>
+          <option value={3}>Mike</option>
+          <option value={4}>Chinmaya</option>
         </select>
-        <button>Submit</button>
+        <button onClick={this.submitClick}>Submit</button>
         <h3>History</h3>
         <table>
           <thead>
