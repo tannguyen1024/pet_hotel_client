@@ -2,11 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
+import PetList from '../PetList/PetList'
+
 class App extends React.Component {
   render(){
     return (
-      <h1>Stuff</h1>
-      );
+      <div>
+        <h1>Pet Hotel</h1>
+        <button>Dashboard</button>
+        <button>Manage Owners</button>
+        <PetList />
+      </div>
+    );
   }
 }
 
