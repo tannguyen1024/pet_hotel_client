@@ -27,6 +27,7 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
   yield takeLatest('FETCH_PETS', fetchPets);
   yield takeLatest('ADD_PET', addPet)
+  yield takeLatest('DELETE_PET', deletePet)
 }
 
 function* fetchPets() {
@@ -45,15 +46,24 @@ function* fetchPets() {
 
 function* addPet(action) {
   console.log('Made it to dispatch');
-  
   try{
     yield axios.post('/pets', action.payload)
     yield put ({ type: "FETCH_PETS" })
   }
   catch (e){
   console.log(e);
+  } 
+}
+
+function* deletePet(action){
+  try{
+    console.log('IN DELETE!!');
+    const response = yield axios.delete(`/pets/${action.payload}`)
+    yield put ({type: "FETCH_PETS", payload: response.data})
   }
-  
+  catch (e) {
+    console.log(e);
+  }
 }
 const rootReducer = combineReducers({
   getPets,

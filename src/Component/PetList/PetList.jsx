@@ -33,8 +33,14 @@ class PetList extends Component {
     this.props.dispatch({
       type: 'ADD_PET',
       payload: this.state.newPet
+    }) 
+  }
+
+  deleteClick = (event, pet) => {
+    this.props.dispatch({
+      type: 'DELETE_PET',
+      payload: pet
     })
-    
   }
 
 
@@ -75,7 +81,7 @@ class PetList extends Component {
                   <td>{pet[3]}</td>
                   <td>{pet[5] ? "yes" : "no"}</td>
                   <td>
-                    <button>Delete</button>
+                    <button onClick={(event) => this.deleteClick(event, pet[0])}>Delete</button>
                     <button>{pet[5] ? "Check Out" : "Check In"}</button>
                   </td>
                 </tr>
