@@ -29,14 +29,17 @@ class PetList extends Component {
   }
 
   submitClick = () => {
-    console.log("button clicked", this.state.newPet);
+    // console.log("button clicked", this.state.newPet);
+    this.props.dispatch({
+      type: 'ADD_PET',
+      payload: this.state.newPet
+    })
     
   }
 
 
 
   render() {
-    console.log(this.props.pets);
     return (
       <div>
         <h3>Add Pet</h3>

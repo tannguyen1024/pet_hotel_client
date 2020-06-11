@@ -26,6 +26,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
   yield takeLatest('FETCH_PETS', fetchPets);
+  yield takeLatest('ADD_PET', addPet)
 }
 
 function* fetchPets() {
@@ -42,6 +43,18 @@ function* fetchPets() {
   }
 }
 
+function* addPet(action) {
+  console.log('Made it to dispatch');
+  
+  try{
+    yield axios.post('/pets', action.payload)
+    yield put ({ type: "FETCH_PETS" })
+  }
+  catch (e){
+  console.log(e);
+  }
+  
+}
 const rootReducer = combineReducers({
   getPets,
 });
