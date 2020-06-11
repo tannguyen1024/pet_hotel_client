@@ -24,29 +24,29 @@ class PetList extends Component {
         <h3>History</h3>
         <table>
           <thead>
-            <td>Owner</td>
-            <td>Pet</td>
-            <td>Breed</td>
-            <td>Color</td>
-            <td>Checked in</td>
-            <td>Actions</td>
+            <tr>
+              <td>Owner</td>
+              <td>Pet</td>
+              <td>Breed</td>
+              <td>Color</td>
+              <td>Checked in</td>
+              <td>Actions</td>
+            </tr>
           </thead>
           <tbody>
             {this.props.pets.map((pet) => {
               return (
-                <>
-                  <tr>
-                    <td>{pet[7]}</td>
-                    <td>{pet[1]}</td>
-                    <td>{pet[2]}</td>
-                    <td>{pet[3]}</td>
-                    <td>{pet[5] ? "yes" : "no"}</td>
-                    <td>
-                      <button>Delete</button>
-                      <button>{pet[5] ? "Check Out" : "Check In"}</button>
-                    </td>
-                  </tr>
-                </>
+                <tr key={pet[0]}>
+                  <td>{pet[7]}</td>
+                  <td>{pet[1]}</td>
+                  <td>{pet[2]}</td>
+                  <td>{pet[3]}</td>
+                  <td>{pet[5] ? "yes" : "no"}</td>
+                  <td>
+                    <button>Delete</button>
+                    <button>{pet[5] ? "Check Out" : "Check In"}</button>
+                  </td>
+                </tr>
               );
             })}
           </tbody>
