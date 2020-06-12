@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-
 class PetList extends Component {
 
   state = {
@@ -13,7 +12,6 @@ class PetList extends Component {
 
     }
   }
-
 
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PETS" });
@@ -30,7 +28,6 @@ class PetList extends Component {
   }
 
   submitClick = () => {
-    // console.log("button clicked", this.state.newPet);
     this.props.dispatch({
       type: 'ADD_PET',
       payload: this.state.newPet
@@ -51,7 +48,6 @@ class PetList extends Component {
       payload: pet
     })
   }
-
 
   render() {
     return (
