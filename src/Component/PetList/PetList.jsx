@@ -43,6 +43,13 @@ class PetList extends Component {
     })
   }
 
+  handleClick = (event, pet) => {
+    console.log('in handleClick')
+      this.props.dispatch({
+        type: 'FETCH_CHECKIN',
+        payload: pet
+      }) 
+  }
 
 
   render() {
@@ -79,10 +86,10 @@ class PetList extends Component {
                   <td>{pet[1]}</td>
                   <td>{pet[2]}</td>
                   <td>{pet[3]}</td>
-                  <td>{pet[5] ? "yes" : "no"}</td>
+                  <td>{pet[5] ? pet[6] : "No"}</td>
                   <td>
                     <button onClick={(event) => this.deleteClick(event, pet[0])}>Delete</button>
-                    <button>{pet[5] ? "Check Out" : "Check In"}</button>
+                    <button onClick={(event) => this.handleClick(event, pet)}>{pet[5] ? "Check Out" : "Check In"}</button>
                   </td>
                 </tr>
               );

@@ -11,6 +11,7 @@ import createSagaMiddleware from "redux-saga";
 
 
 
+
 const getPets = (state = [], action) => {
    switch (action.type) {
      case "SET_PETS":
@@ -28,6 +29,8 @@ function* rootSaga() {
   yield takeLatest('FETCH_PETS', fetchPets);
   yield takeLatest('ADD_PET', addPet)
   yield takeLatest('DELETE_PET', deletePet)
+  yield takeLatest('FETCH_CHECKIN', updatePet)
+
 }
 
 function* fetchPets() {
@@ -65,6 +68,19 @@ function* deletePet(action){
     console.log(e);
   }
 }
+
+function* updatePet(action){
+  try{
+    console.log('update payload.....>', action.payload)
+    yield axios.put(`/pets/update/${action.payload[0]}`, action.payload)
+    yield put({ type: "FETCH_PETS" })
+  }
+  catch (e) {
+    console.log(e);
+  }
+}
+
+
 const rootReducer = combineReducers({
   getPets,
 });
