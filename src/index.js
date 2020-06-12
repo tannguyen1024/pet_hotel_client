@@ -9,9 +9,6 @@ import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 import createSagaMiddleware from "redux-saga";
 
-
-
-
 const getPets = (state = [], action) => {
    switch (action.type) {
      case "SET_PETS":
@@ -22,15 +19,24 @@ const getPets = (state = [], action) => {
    }
 }
 
-const sagaMiddleware = createSagaMiddleware();
+const getOwners = (state = [], action) => {
+  switch (action.type) {
+    case "SET_OWNERS":
+      console.log(action.payload)
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
+const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
   yield takeLatest('FETCH_PETS', fetchPets);
-  yield takeLatest('ADD_PET', addPet)
-  yield takeLatest('DELETE_PET', deletePet)
-  yield takeLatest('FETCH_CHECKIN', updatePet)
-
+  yield takeLatest('ADD_PET', addPet);
+  yield takeLatest('DELETE_PET', deletePet);
+  yield takeLatest('FETCH_CHECKIN', updatePet);
+  yield takeLatest('FETCH_OWNERS', fetchOwners);
 }
 
 function* fetchPets() {
@@ -44,6 +50,20 @@ function* fetchPets() {
   } catch (error) {
     console.log(error);
     alert('Error getting Pets')
+  }
+}
+
+function* fetchOwners() {
+  try {
+    const response = yield axios.get('/owners');
+    console.log('in fetchOwners', response.data);
+    yield put({
+      type: 'SET_OWNERS',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log(error);
+    alert('Error getting Owners')
   }
 }
 
@@ -80,15 +100,12 @@ function* updatePet(action){
   }
 }
 
-
 const rootReducer = combineReducers({
-  getPets,
+  getPets, getOwners
 });
 
 const storeInstance = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga)
-
-
 
 ReactDOM.render(
   <React.StrictMode>

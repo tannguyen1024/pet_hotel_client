@@ -17,6 +17,7 @@ class PetList extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PETS" });
+    this.props.dispatch({ type: "FETCH_OWNERS" });
   }
 
   handleChange = (event, property) => {
@@ -33,7 +34,7 @@ class PetList extends Component {
     this.props.dispatch({
       type: 'ADD_PET',
       payload: this.state.newPet
-    }) 
+    })
   }
 
   deleteClick = (event, pet) => {
@@ -45,10 +46,10 @@ class PetList extends Component {
 
   handleClick = (event, pet) => {
     console.log('in handleClick')
-      this.props.dispatch({
-        type: 'FETCH_CHECKIN',
-        payload: pet
-      }) 
+    this.props.dispatch({
+      type: 'FETCH_CHECKIN',
+      payload: pet
+    })
   }
 
 
@@ -60,10 +61,11 @@ class PetList extends Component {
         <input type="text" placeholder="Pet Color" onChange={(event) => this.handleChange(event, "color")}></input>
         <input type="text" placeholder="Pet Breed" onChange={(event) => this.handleChange(event, "breed")}></input>
         <select onChange={(event) => this.handleChange(event, "owner_id")}>
-          <option value={1}>Natalie</option>
-          <option value={2}>Tan</option>
-          <option value={3}>Mike</option>
-          <option value={4}>Chinmaya</option>
+          {this.props.owners.map((owner) => {
+            return (
+              <option value={owner[0]}>{owner[1]}</option>
+            )
+          })}
         </select>
         <button onClick={this.submitClick}>Submit</button>
         <h3>History</h3>
@@ -103,6 +105,7 @@ class PetList extends Component {
 
 const mapStateToProps = (state) => ({
   pets: state.getPets,
+  owners: state.getOwners
 });
 
 export default connect(mapStateToProps)(PetList);

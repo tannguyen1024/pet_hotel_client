@@ -10,7 +10,7 @@ class App extends React.Component {
       <div>
         <h1>Pet Hotel</h1>
         <button>Dashboard</button>
-        <button>Manage Owners</button>
+        <button onClick={()=>{alert('Ads here.  Please purchase app to gain access to owners!')}}>Manage Owners</button>
         <PetList />
       </div>
     );
